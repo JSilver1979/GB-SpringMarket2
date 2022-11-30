@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products at Market</title>
+</head>
+<body>
+<h1>Products at Market</h1>
+<div th:each="p : ${products}">
+    <a th:href="@{'/info?id='+ ${p.id}}">
+        <span th:text="${'ID:' + p.id + ' Title: ' + p.title + ' Price: ' + p.cost}"/>
+    </a>
+</div>
+</body>
+</html>

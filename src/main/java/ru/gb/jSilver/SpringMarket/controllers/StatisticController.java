@@ -4,18 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gb.jSilver.SpringMarket.AppLoggingAspect;
+import ru.gb.jSilver.SpringMarket.data.StatItem;
 import ru.gb.jSilver.SpringMarket.data.Statistics;
-import ru.gb.jSilver.SpringMarket.dto.Cart;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/statistic")
 public class StatisticController {
-    private final AppLoggingAspect appLoggingAspect;
+    private final Statistics statistics;
 
     @GetMapping
-    public Statistics getStatistics() {
-        return appLoggingAspect.getTotalDuration();
+    public List<StatItem> statItemList () {
+        return statistics.getData();
     }
 }

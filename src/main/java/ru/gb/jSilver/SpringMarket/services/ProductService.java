@@ -2,7 +2,7 @@ package ru.gb.jSilver.SpringMarket.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.gb.jSilver.SpringMarket.data.Product;
+import ru.gb.jSilver.SpringMarket.data.ProductEntity;
 import ru.gb.jSilver.SpringMarket.dto.*;
 import ru.gb.jSilver.SpringMarket.repos.ProductRepository;
 
@@ -37,22 +37,22 @@ public class ProductService {
     }
 
     public void createProduct(CreateProductDto product) {
-        productRepository.save(new Product(product.getTitle(), product.getPrice()));
+        productRepository.save(new ProductEntity(product.getTitle(), product.getPrice()));
     }
 
     @Transactional
     public void changeProductPrice(Long productId, Integer price) {
         ChangeProductPriceDto productChangedPrice = new ChangeProductPriceDto(productId, price);
-        Product product = productRepository.findById(productChangedPrice.getId()).orElseThrow();
-        product.setPrice(product.getPrice() + productChangedPrice.getPrice());
-        productRepository.save(product);
+        ProductEntity productEntity = productRepository.findById(productChangedPrice.getId()).orElseThrow();
+        productEntity.setPrice(productEntity.getPrice() + productChangedPrice.getPrice());
+        productRepository.save(productEntity);
     }
 
     @Transactional
     public void updateProduct(UpdateProductDto product) {
-        Product updatedProduct = productRepository.findById(product.getId()).orElseThrow();
-        updatedProduct.setPrice(product.getPrice());
-        updatedProduct.setTitle(product.getTitle());
-        productRepository.save(updatedProduct);
+        ProductEntity updatedProductEntity = productRepository.findById(product.getId()).orElseThrow();
+        updatedProductEntity.setPrice(product.getPrice());
+        updatedProductEntity.setTitle(product.getTitle());
+        productRepository.save(updatedProductEntity);
     }
 }

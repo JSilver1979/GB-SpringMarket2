@@ -1,4 +1,4 @@
-package ru.gb.jSilver.SpringMarket;
+package ru.gb.jSilver.SpringMarket.configs;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

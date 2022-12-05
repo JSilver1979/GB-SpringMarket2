@@ -1,6 +1,6 @@
 package ru.gb.jSilver.SpringMarket.dto;
 
-import ru.gb.jSilver.SpringMarket.data.Product;
+import ru.gb.jSilver.SpringMarket.data.ProductEntity;
 
 public class ProductDto {
     private Long id;
@@ -8,10 +8,10 @@ public class ProductDto {
     private String title;
     private Integer price;
 
-    public ProductDto(Product product) {
-        this.id = product.getId();
-        this.title = product.getTitle();
-        this.price = product.getPrice();
+    public ProductDto(ProductEntity productEntity) {
+        this.id = productEntity.getId();
+        this.title = productEntity.getTitle();
+        this.price = productEntity.getPrice();
     }
 
     public ProductDto() {

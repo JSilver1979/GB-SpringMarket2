@@ -1,7 +1,6 @@
 package ru.gb.jSilver.SpringMarket.data;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +24,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private ProductEntity productEntity;
 
     @Column(name = "quantity")
     private int quantity;
@@ -36,9 +35,9 @@ public class OrderItem {
     @Column(name = "price")
     private int price;
 
-    public OrderItem(Order order, Product product, int quantity, int pricePerProduct, int price) {
+    public OrderItem(Order order, ProductEntity productEntity, int quantity, int pricePerProduct, int price) {
         this.order = order;
-        this.product = product;
+        this.productEntity = productEntity;
         this.quantity = quantity;
         this.pricePerProduct = pricePerProduct;
         this.price = price;

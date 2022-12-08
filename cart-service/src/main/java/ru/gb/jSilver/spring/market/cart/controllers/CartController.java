@@ -1,17 +1,15 @@
 package ru.gb.jSilver.spring.market.cart.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.gb.jSilver.spring.market.cart.data.Cart;
+import org.springframework.web.bind.annotation.*;
+import ru.gb.jSilver.spring.market.api.CartDto;
 import ru.gb.jSilver.spring.market.cart.services.CartService;
 
 
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CartController {
     private final CartService cartService;
 
@@ -21,7 +19,12 @@ public class CartController {
     }
 
     @GetMapping
-    public Cart getCurrentCart() {
+    public CartDto getCurrentCart() {
         return cartService.getCurrentCart();
+    }
+
+    @GetMapping("/clear")
+    public void clearCart() {
+        cartService.clearCurrentCart();
     }
 }

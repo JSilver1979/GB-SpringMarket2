@@ -1,4 +1,4 @@
-package ru.gb.jSilver.spring.market.core.exceptions;
+package ru.gb.jSilver.spring.market.cart.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

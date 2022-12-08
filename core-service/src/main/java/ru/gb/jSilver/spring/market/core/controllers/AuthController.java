@@ -7,17 +7,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gb.jSilver.spring.market.core.auth.AuthRequest;
-import ru.gb.jSilver.spring.market.core.auth.AuthResponse;
-import ru.gb.jSilver.spring.market.core.exceptions.AppError;
+import ru.gb.jSilver.spring.market.api.AppError;
+import ru.gb.jSilver.spring.market.api.AuthResponse;
 import ru.gb.jSilver.spring.market.core.services.UserService;
 import ru.gb.jSilver.spring.market.core.utils.JwtTokenUtil;
+import ru.gb.jSilver.spring.market.api.AuthRequest;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;

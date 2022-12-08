@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class OrderController {
 
     private final OrdersService ordersService;
@@ -22,7 +23,7 @@ public class OrderController {
         ordersService.createOrder();
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<Order> getOrders () {
         return ordersService.findAll();
     }

@@ -14,5 +14,7 @@
 		<module>core-service</module>
 		<module>cart-service</module>
         <module>api</module>
+		<module>products-service</module>
+        <module>front</module>
     </modules>
 </project>

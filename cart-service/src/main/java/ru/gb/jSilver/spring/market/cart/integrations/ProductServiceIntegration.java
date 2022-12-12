@@ -1,22 +1,28 @@
 package ru.gb.jSilver.spring.market.cart.integrations;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import ru.gb.jSilver.spring.market.api.ProductDto;
+import ru.gb.jSilver.spring.market.api.ResourceNotFoundException;
 
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class ProductServiceIntegration {
-    private final RestTemplate restTemplate;
-    @Value(value = "${productMSURL}")
-    private String productMSUrl;
+    private final WebClient productServiceWebClient;
 
-    public Optional<ProductDto> getProductById(Long id) {
-        return Optional.ofNullable(restTemplate.getForObject(productMSUrl + id, ProductDto.class));
+    public ProductDto getProductById(Long id) {
+        ProductDto productDto = productServiceWebClient.get()
+                .uri("/api/v1/products/"+ id)
+                .retrieve()
+                .onStatus(httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(),
+                        clientResponse -> Mono.error(new ResourceNotFoundException("Product not found")))
+                .bodyToMono(ProductDto.class)
+                .block();
+        return productDto;
     }
 
 }

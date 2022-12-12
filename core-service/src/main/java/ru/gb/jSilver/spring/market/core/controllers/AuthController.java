@@ -19,7 +19,6 @@ import ru.gb.jSilver.spring.market.api.AuthRequest;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class AuthController {
     private final UserService userService;
     private final JwtTokenUtil jwtTokenUtil;
@@ -32,7 +31,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppError(401,"Incorrect username or password"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(),"Incorrect username or password"), HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);

@@ -2,4 +2,10 @@ server:
   port: 8190
   servlet:
     context-path: /market-cart
-productMSURL: http://localhost:8191/products/api/v1/products/
+#productMSURL: http://localhost:8191/products/api/v1/products/
+integrations:
+  product-service:
+    url: http://localhost:5555/products
+    read-timeout: 10000
+    write-timeout: 5000
+    connect-timeout: 5000

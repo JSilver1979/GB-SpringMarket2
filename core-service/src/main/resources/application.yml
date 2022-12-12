@@ -1,11 +1,11 @@
 server:
-  port: 8191
+  port: 8189
   servlet:
-    context-path: /products-service
+    context-path: /core-service
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:./mydatabase;MODE=PostgreSQL
+    url: jdbc:h2:file:./users;MODE=PostgreSQL
     username: sa
     password:
   jpa:
@@ -17,6 +17,6 @@ spring:
     console:
       enabled: true
       path: /h2
-cart:
-  get-cart: http://localhost:8190/market-cart/api/v1/cart
-  clear-cart: http://localhost:8190/market-cart/api/v1/cart/clear
+jwt:
+  secret: kfkhgfkhgftfuuyghboggh786h984hiub9h0u9n7tn409tun4598b
+  lifetime: 108000

@@ -16,5 +16,6 @@
         <module>api</module>
 		<module>products-service</module>
         <module>front</module>
+        <module>gateway-service</module>
     </modules>
 </project>

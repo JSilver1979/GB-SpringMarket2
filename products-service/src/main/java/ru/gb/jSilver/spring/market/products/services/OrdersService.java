@@ -28,7 +28,7 @@ public class OrdersService {
 
 
     @Transactional
-    public void createOrder() {
+    public Order createOrder() {
         Order order = new Order();
         CartDto cartDto = cartServiceIntegration.getCartDto();
         order.setTotalPrice(cartDto.getTotalPrice());
@@ -47,6 +47,7 @@ public class OrdersService {
 
         ordersRepository.save(order);
         cartServiceIntegration.clearCart();
+        return order;
     }
 
     public List<Order> findAll () {

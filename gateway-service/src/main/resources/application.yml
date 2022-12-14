@@ -25,6 +25,14 @@ spring:
             - StripPrefix=1
             - PrefixPath=/products-service
             - JwtAuthFilter
+        - id: orders-service
+          uri: http://localhost:8197
+          predicates:
+            - Path=/orders/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/orders-service
+            - JwtAuthFilter
         - id: core-service
           uri: http://localhost:8189
           predicates:

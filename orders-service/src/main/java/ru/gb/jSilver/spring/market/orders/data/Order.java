@@ -1,4 +1,4 @@
-package ru.gb.jSilver.spring.market.products.data;
+package ru.gb.jSilver.spring.market.orders.data;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;

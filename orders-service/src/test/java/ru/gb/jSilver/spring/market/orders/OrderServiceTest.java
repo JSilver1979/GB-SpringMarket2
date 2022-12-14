@@ -1,4 +1,4 @@
-package ru.gb.jSilver.spring.market.products;
+package ru.gb.jSilver.spring.market.orders;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,16 +9,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.gb.jSilver.spring.market.api.CartDto;
 import ru.gb.jSilver.spring.market.api.CartItemDto;
 import ru.gb.jSilver.spring.market.api.ProductDto;
-import ru.gb.jSilver.spring.market.products.converters.ProductConverter;
-import ru.gb.jSilver.spring.market.products.data.Order;
-import ru.gb.jSilver.spring.market.products.data.ProductEntity;
-import ru.gb.jSilver.spring.market.products.integrations.CartServiceIntegration;
-import ru.gb.jSilver.spring.market.products.repos.OrderItemRepository;
-import ru.gb.jSilver.spring.market.products.repos.OrdersRepository;
-import ru.gb.jSilver.spring.market.products.services.OrdersService;
-import ru.gb.jSilver.spring.market.products.services.ProductService;
+import ru.gb.jSilver.spring.market.orders.data.Order;
+import ru.gb.jSilver.spring.market.orders.integrations.CartServiceIntegration;
+import ru.gb.jSilver.spring.market.orders.repos.OrderItemRepository;
+import ru.gb.jSilver.spring.market.orders.repos.OrdersRepository;
+import ru.gb.jSilver.spring.market.orders.services.OrdersService;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -29,11 +26,7 @@ public class OrderServiceTest {
 
     @MockBean
     private CartServiceIntegration cartServiceIntegration;
-    @MockBean
-    private ProductService productService;
 
-    @MockBean
-    ProductConverter productConverter;
     @MockBean
     private OrderItemRepository orderItemRepository;
     @MockBean
@@ -54,14 +47,6 @@ public class OrderServiceTest {
 
         ProductDto productDto = new ProductDto(999L,"Coca-Cola",100);
 
-        ProductEntity product = new ProductEntity();
-        product.setId(999L);
-        product.setTitle("Coca-Cola");
-        product.setPrice(100);
-
-
-        Mockito.doReturn(product).when(productConverter).dtoToEntity(productDto);
-        Mockito.doReturn(Optional.of(productDto)).when(productService).findById(999L);
         Mockito.doReturn(testCart).when(cartServiceIntegration).getCartDto();
 
         Order testOrder = ordersService.createOrder();

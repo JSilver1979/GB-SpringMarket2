@@ -15,8 +15,6 @@ import ru.gb.jSilver.spring.market.core.services.UserService;
 import ru.gb.jSilver.spring.market.core.utils.JwtTokenUtil;
 import ru.gb.jSilver.spring.market.api.AuthRequest;
 
-import java.security.Principal;
-
 @RestController
 @RequiredArgsConstructor
 public class AuthController {

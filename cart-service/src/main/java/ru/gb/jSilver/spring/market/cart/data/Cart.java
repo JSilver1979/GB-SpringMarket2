@@ -31,11 +31,6 @@ public class Cart {
                     productDto.getPrice()
             ));
         }
-//        else {
-//            CartItem existingCartItem = mapCartItems.get(productDto.getId());
-//            existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
-//            existingCartItem.setPrice(existingCartItem.getPrice() + existingCartItem.getPricePerProduct());
-//        }
         cartItems = mapCartItems.values().stream().collect(Collectors.toList());
         recalculate();
     }

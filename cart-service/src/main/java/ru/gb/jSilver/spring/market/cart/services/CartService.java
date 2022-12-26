@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.jSilver.spring.market.api.CartDto;
 import ru.gb.jSilver.spring.market.api.ProductDto;
-import ru.gb.jSilver.spring.market.api.ResourceNotFoundException;
 import ru.gb.jSilver.spring.market.cart.converters.CartConverter;
 import ru.gb.jSilver.spring.market.cart.data.Cart;
 import ru.gb.jSilver.spring.market.cart.integrations.ProductServiceIntegration;
@@ -29,8 +28,13 @@ public class CartService {
     }
 
     public void add(Long id) {
+        if (demoCart.getMapCartItems().containsKey(id)) {
+            demoCart.addExistingItem(id);
+            return;
+        }
         ProductDto productDto = productServiceIntegration.getProductById(id);
-        demoCart.add(productDto);
+        demoCart.addNewItem(productDto);
+
     }
 
     public void clearCurrentCart() {

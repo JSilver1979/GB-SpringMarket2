@@ -20,18 +20,6 @@ public class ProductEndpoint {
     @ResponsePayload
     public GetAllProductsResponse getAllProductsResponse(@RequestPayload GetAllProductsRequest request) {
         GetAllProductsResponse response = new GetAllProductsResponse();
-//        soapService.getSoapProducts().forEach(response.getProducts()::add); //TODO: Fix this!
         return response;
     }
-    /*
-    http://localhost:8189/app/ws
-    Header - Content-Type: text/xml
-
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:f="http://jsilver.gb.ru/springmarket">
-        <soapenv:Header/>
-        <soapenv:Body>
-            <f:getAllProductsRequest/>
-        </soapenv:Body>
-    </soapenv:Envelope>
-    */
 }

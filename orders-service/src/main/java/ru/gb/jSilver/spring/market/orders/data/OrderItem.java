@@ -1,14 +1,13 @@
-package ru.gb.jSilver.spring.market.products.data;
+package ru.gb.jSilver.spring.market.orders.data;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.gb.jSilver.spring.market.api.ProductDto;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orders_products")
+@Table(name = "orders_items")
 @Data
 @NoArgsConstructor
 public class OrderItem {
@@ -23,9 +22,8 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "quantity")
     private int quantity;
@@ -36,9 +34,9 @@ public class OrderItem {
     @Column(name = "price")
     private int price;
 
-    public OrderItem(Order order, ProductEntity product, int quantity, int pricePerProduct, int price) {
+    public OrderItem(Order order, Long productId, int quantity, int pricePerProduct, int price) {
         this.order = order;
-        this.product = product;
+        this.productId = productId;
         this.quantity = quantity;
         this.pricePerProduct = pricePerProduct;
         this.price = price;

@@ -21,7 +21,7 @@ public class Cart {
         return cartItems;
     }
 
-    public void add(ProductDto productDto) {
+    public void addNewItem(ProductDto productDto) {
         if(!mapCartItems.containsKey(productDto.getId())) {
             mapCartItems.put(productDto.getId(), new CartItem(
                     productDto.getId(),
@@ -30,11 +30,16 @@ public class Cart {
                     productDto.getPrice(),
                     productDto.getPrice()
             ));
-        } else {
-            CartItem existingCartItem = mapCartItems.get(productDto.getId());
-            existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
-            existingCartItem.setPrice(existingCartItem.getPrice() + existingCartItem.getPricePerProduct());
         }
+        cartItems = mapCartItems.values().stream().collect(Collectors.toList());
+        recalculate();
+    }
+
+    public void addExistingItem(Long id) {
+        CartItem existingCartItem = mapCartItems.get(id);
+        existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
+        existingCartItem.setPrice(existingCartItem.getPrice() + existingCartItem.getPricePerProduct());
+
         cartItems = mapCartItems.values().stream().collect(Collectors.toList());
         recalculate();
     }

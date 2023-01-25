@@ -1,14 +1,13 @@
-package ru.gb.jSilver.spring.market.products.services;
+package ru.gb.jSilver.spring.market.orders.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.jSilver.spring.market.api.CartDto;
-import ru.gb.jSilver.spring.market.products.converters.ProductConverter;
-import ru.gb.jSilver.spring.market.products.integrations.CartServiceIntegration;
-import ru.gb.jSilver.spring.market.products.repos.OrderItemRepository;
-import ru.gb.jSilver.spring.market.products.repos.OrdersRepository;
-import ru.gb.jSilver.spring.market.products.data.Order;
-import ru.gb.jSilver.spring.market.products.data.OrderItem;
+import ru.gb.jSilver.spring.market.orders.data.Order;
+import ru.gb.jSilver.spring.market.orders.data.OrderItem;
+import ru.gb.jSilver.spring.market.orders.integrations.CartServiceIntegration;
+import ru.gb.jSilver.spring.market.orders.repos.OrderItemRepository;
+import ru.gb.jSilver.spring.market.orders.repos.OrdersRepository;
 
 
 import javax.transaction.Transactional;
@@ -20,22 +19,18 @@ import java.util.stream.Collectors;
 public class OrdersService {
     private final OrdersRepository ordersRepository;
     private final OrderItemRepository orderItemRepository;
-
-    private final ProductConverter productConverter;
-    private final ProductService productService;
-
     private final CartServiceIntegration cartServiceIntegration;
 
 
     @Transactional
-    public void createOrder() {
+    public Order createOrder() {
         Order order = new Order();
         CartDto cartDto = cartServiceIntegration.getCartDto();
         order.setTotalPrice(cartDto.getTotalPrice());
         order.setItems(cartDto.getItems().stream().map(
                 cartItemDto -> new OrderItem(
                         order,
-                        productConverter.dtoToEntity(productService.findById(cartItemDto.getId()).orElseThrow()),
+                        cartItemDto.getId(),
                         cartItemDto.getQuantity(),
                         cartItemDto.getPricePerProduct(),
                         cartItemDto.getPrice()
@@ -47,6 +42,7 @@ public class OrdersService {
 
         ordersRepository.save(order);
         cartServiceIntegration.clearCart();
+        return order;
     }
 
     public List<Order> findAll () {

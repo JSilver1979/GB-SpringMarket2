@@ -17,5 +17,6 @@
 		<module>products-service</module>
         <module>front</module>
         <module>gateway-service</module>
+        <module>orders-service</module>
     </modules>
 </project>

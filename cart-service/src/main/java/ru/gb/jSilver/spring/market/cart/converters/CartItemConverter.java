@@ -7,13 +7,14 @@ import ru.gb.jSilver.spring.market.cart.data.CartItem;
 @Component
 public class CartItemConverter {
     public CartItemDto entityToDto(CartItem cartItem) {
-        CartItemDto cartItemDto = new CartItemDto();
-        cartItemDto.setId(cartItem.getId());
-        cartItemDto.setProductTitle(cartItem.getProductTitle());
-        cartItemDto.setQuantity(cartItem.getQuantity());
-        cartItemDto.setPricePerProduct(cartItem.getPricePerProduct());
-        cartItemDto.setPrice(cartItem.getPrice());
 
-        return cartItemDto;
+        return CartItemDto.CartItemBuilder.aCartItemDto()
+                .withId(cartItem.getId())
+                .withProductTitle(cartItem.getProductTitle())
+                .withQuantity(cartItem.getQuantity())
+                .withPricePerProduct(cartItem.getPricePerProduct())
+                .withPrice(cartItem.getPrice())
+                .build();
+
     }
 }

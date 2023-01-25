@@ -46,4 +46,54 @@ public class CartItemDto {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    public static final class CartItemBuilder {
+        private Long id;
+        private String productTitle;
+        private Integer quantity;
+        private Integer pricePerProduct;
+        private Integer price;
+
+        private CartItemBuilder() {
+        }
+
+        public static CartItemBuilder aCartItemDto() {
+            return new CartItemBuilder();
+        }
+
+        public CartItemBuilder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public CartItemBuilder withProductTitle(String productTitle) {
+            this.productTitle = productTitle;
+            return this;
+        }
+
+        public CartItemBuilder withQuantity(Integer quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        public CartItemBuilder withPricePerProduct(Integer pricePerProduct) {
+            this.pricePerProduct = pricePerProduct;
+            return this;
+        }
+
+        public CartItemBuilder withPrice(Integer price) {
+            this.price = price;
+            return this;
+        }
+
+        public CartItemDto build() {
+            CartItemDto cartItemDto = new CartItemDto();
+            cartItemDto.setId(id);
+            cartItemDto.setProductTitle(productTitle);
+            cartItemDto.setQuantity(quantity);
+            cartItemDto.setPricePerProduct(pricePerProduct);
+            cartItemDto.setPrice(price);
+            return cartItemDto;
+        }
+    }
 }

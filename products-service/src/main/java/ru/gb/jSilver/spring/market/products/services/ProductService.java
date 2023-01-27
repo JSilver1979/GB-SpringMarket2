@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.jSilver.spring.market.api.*;
+import ru.gb.jSilver.spring.market.products.converters.ProductCacheProxy;
 import ru.gb.jSilver.spring.market.products.converters.ProductConverter;
 import ru.gb.jSilver.spring.market.products.data.ProductEntity;
 import ru.gb.jSilver.spring.market.products.repos.ProductRepository;
@@ -18,10 +19,11 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
+    private final ProductCacheProxy cacheProxy;
 
 
     public Optional<ProductDto> findById(Long id) {
-        return productRepository.findById(id).map(productConverter::entityToDto);
+        return cacheProxy.findById(id);
     }
 
     public List<ProductDto> findAllProducts() {

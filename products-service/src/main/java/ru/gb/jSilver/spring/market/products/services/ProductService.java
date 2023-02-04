@@ -1,11 +1,14 @@
 package ru.gb.jSilver.spring.market.products.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.jSilver.spring.market.api.*;
 import ru.gb.jSilver.spring.market.products.converters.ProductConverter;
 import ru.gb.jSilver.spring.market.products.data.ProductEntity;
+import ru.gb.jSilver.spring.market.products.events.ProductEvent;
+import ru.gb.jSilver.spring.market.products.events.ProductStatus;
 import ru.gb.jSilver.spring.market.products.repos.ProductRepository;
 
 
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductConverter productConverter;
+    private  final ApplicationEventPublisher eventPublisher;
 
 
     public Optional<ProductDto> findById(Long id) {
@@ -36,10 +40,12 @@ public class ProductService {
     public void deleteProduct(Long id) {
         DeleteProductDto deleteProductDto = new DeleteProductDto(id);
         productRepository.deleteById(deleteProductDto.getId());
+        eventPublisher.publishEvent(new ProductEvent(this, id, null,ProductStatus.PRODUCT_DELETED.toString()));
     }
 
     public void createProduct(CreateProductDto product) {
         productRepository.save(new ProductEntity(product.getTitle(), product.getPrice()));
+        eventPublisher.publishEvent(new ProductEvent(this, null, product.getTitle(), ProductStatus.PRODUCT_ADDED.toString()));
     }
 
     @Transactional
@@ -48,6 +54,7 @@ public class ProductService {
         ProductEntity productEntity = productRepository.findById(productChangedPrice.getId()).orElseThrow();
         productEntity.setPrice(productEntity.getPrice() + productChangedPrice.getPrice());
         productRepository.save(productEntity);
+        eventPublisher.publishEvent(new ProductEvent(this, productId, null,ProductStatus.PRICE_UPDATED.toString()));
     }
 
     @Transactional

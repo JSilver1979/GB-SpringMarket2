@@ -26,4 +26,5 @@ public class ProductEntity {
         this.title = title;
         this.price = price;
     }
+
 }

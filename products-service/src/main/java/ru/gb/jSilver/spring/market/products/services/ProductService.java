@@ -23,10 +23,12 @@ public class ProductService {
 
 
     public Optional<ProductDto> findById(Long id) {
+
         return cacheProxy.findById(id);
     }
 
     public List<ProductDto> findAllProducts() {
+
         List<ProductDto> productList = productRepository.findAll()
                 .stream()
                 .map(productConverter::entityToDto)
@@ -38,10 +40,12 @@ public class ProductService {
     public void deleteProduct(Long id) {
         DeleteProductDto deleteProductDto = new DeleteProductDto(id);
         productRepository.deleteById(deleteProductDto.getId());
+
     }
 
     public void createProduct(CreateProductDto product) {
         productRepository.save(new ProductEntity(product.getTitle(), product.getPrice()));
+
     }
 
     @Transactional
